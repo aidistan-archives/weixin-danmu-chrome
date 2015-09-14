@@ -15,6 +15,7 @@ chrome.storage.onChanged.addListener(refresh_options);
 
 // Global Variables
 var activated = false;
+var hb_timer;
 
 // Toolbar Button
 chrome.browserAction.onClicked.addListener(function(tab) {
@@ -50,8 +51,6 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 
 // Recieve messages
 chrome.runtime.onMessage.addListener(function(request) {
-  var timer;
-
   if (request.type === 'weixin') {
     if (prefs.showAllMessages || request.message.room == 'inside') {
       chrome.runtime.sendMessage({
@@ -66,12 +65,12 @@ chrome.runtime.onMessage.addListener(function(request) {
     }
   } else if (request.type === 'heartbeat') {
     if (activated) {
-      window.clearTimeout(timer);
+      window.clearTimeout(hb_timer);
     }
     else {
       hookup();
     }
-    timer = setTimeout(breakup, 5000);
+    hb_timer = setTimeout(breakup, 5000);
   } else if (request.type === 'notification' && prefs.showNotifications) {
     chrome.notifications.create('notification', {
       type: "basic",
