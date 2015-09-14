@@ -4,6 +4,7 @@
 
 ## 安装
 
+将从 Github 下载的[插件压缩包](http://aidistan.github.io/chrome-weixin-danmu/weixin-danmu.zip)直接拖入 [Chrome 扩展页面](chrome://extensions/)内即可。
 
 ## 使用
 
