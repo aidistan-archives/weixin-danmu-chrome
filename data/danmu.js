@@ -1,4 +1,17 @@
+// Get options
 var prefs;
+function refresh_options() {
+  chrome.storage.sync.get({
+    defaultfontSize: 48,
+    showAllMessages: false,
+    showUsername: false,
+    pinWeixinTab: false,
+    showNotifications: false,
+    danmuDebug: false
+  }, function(items) { prefs = items; });
+}
+refresh_options();
+chrome.storage.onChanged.addListener(refresh_options);
 
 var colors   = [
   '#00aeef', // blue
@@ -29,9 +42,13 @@ $(window).resize(function() {
   limit.image.height = window.innerHeight / 3;
 });
 
-self.port.on('setup', function(msg) { prefs = msg; });
+chrome.runtime.onMessage.addListener(function(request) {
+  // Whether to recieve
+  if (request.type !== 'bullet') {
+    return null;
+  }
+  var msg = request.message;
 
-self.port.on('bullet', function(msg) {
   // Defaults
   var fontSize = prefs.defaultfontSize;
   var color  = colors[Math.floor(Math.random() * colors.length)];
@@ -120,7 +137,7 @@ self.port.on('bullet', function(msg) {
   }
   bullet.addClass('danmu-bullet').css({
     color: color,
-    'font-size': fontSize,
+    'font-size': fontSize + 'px',
     'font-weight': 'bold',
     'white-space': 'nowrap',
     'overflow-y': 'visible'
