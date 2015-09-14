@@ -13,6 +13,12 @@ function refresh_options() {
 refresh_options();
 chrome.storage.onChanged.addListener(refresh_options);
 
+// Show notification
+chrome.runtime.sendMessage({
+  type: 'notification',
+  message: { title: '弹幕发射模块已加载', text: '至页面' + window.location.protocol + '//' + window.location.host + window.location.pathname }
+});
+
 var colors   = [
   '#00aeef', // blue
   '#ea428a', // red

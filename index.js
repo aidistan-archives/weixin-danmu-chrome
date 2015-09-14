@@ -103,49 +103,6 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 //     wx_workers[worker.tab.id] = worker;
 //   }
 // });
-//
-// // Attach danmu.js
-// for (let tab of tabs) { bindDanmu(tab); }
-// tabs.on('open', bindDanmu);
-// tabs.on('activate', switchDanmu);
-//
-// // Utility functions
-// function bindDanmu(tab) {
-//   attachDanmu(tab);
-//   tab.on('pageshow', attachDanmu);
-// }
-//
-// function switchDanmu(tab) {
-//   dm_worker = dm_workers[tab.id];
-//   if (dm_worker) {
-//     pushDanmuSettings(dm_worker);
-//   }
-// }
-//
-// function attachDanmu(tab) {
-//   // Do not attach to places where scripts are blocked internally
-//   if (/about:/.test(tab.url)) {
-//     return;
-//   }
-//
-//   showNotification({ title: '加载弹幕发射模块', text: '至页面' + tab.url });
-//   var worker = tab.attach({
-//     contentScriptFile: [
-//       self.data.url('vendor/jquery-2.1.3.min.js'),
-//       self.data.url('danmu.js')
-//     ]
-//   });
-//   pushDanmuSettings(worker);
-//
-//   dm_workers[tab.id] = worker;
-//   if (tabs.activeTab.id == tab.id) {
-//     dm_worker = worker;
-//   }
-// }
-//
-// function pushDanmuSettings(worker) {
-//   worker.port.emit('setup', prefs);
-// }
 
 function randomString(len) {
   len = len || 32;
@@ -157,34 +114,15 @@ function randomString(len) {
   }
   return str;
 }
-//
-// function showNotification(notify) {
-//   if (prefs.showNotifications) {
-//     toaster.notify({
-//       title: notify.title,
-//       text: notify.text,
-//       iconURL: self.data.url('icons/icon.png')
-//     });
-//   }
-// }
-//
-// // Handle things down on unload
-// exports.onUnload = function (reason) {
-//   var id;
-//
-//   // Stop modifying pages
-//   pagemod.destroy();
-//
-//   // Destroy wx_workers
-//   for (id in wx_workers) { wx_workers[id].destroy(); }
-//
-//   // Stop listening to "open" and "activate" events from tabs
-//   // FIXME: Which method to call ?
-//   // tabs.destroy();
-//
-//   // Stop listening to "pageshow" events from tab
-//   for (let tab of tabs) { tab.destroy(); }
-//
-//   // Destroy dm_workers
-//   for (id in dm_workers) { dm_workers[id].destroy(); }
-// };
+
+chrome.runtime.onMessage.addListener(function(request) {
+  // Whether to recieve
+  if (request.type === 'notification' && prefs.showNotifications) {
+    chrome.notifications.create('notification', {
+      type: "basic",
+      iconUrl: 'data/icons/icon.png',
+      title: request.message.title,
+      message: request.message.text
+    });
+  }
+});
