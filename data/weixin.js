@@ -110,6 +110,6 @@ function sendMessage(msg) {
     setTimeout(function() {
       msg.room = $("[data-cm='" + msg.selector + "']").length > 0 ? 'inside' : 'outside';
       chrome.runtime.sendMessage({ type: 'weixin', message: msg });
-    }, 100);
+    }, 3000);
   }
 }
