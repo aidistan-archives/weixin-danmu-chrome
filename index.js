@@ -58,11 +58,10 @@ chrome.runtime.onMessage.addListener(function(request) {
         type: 'notification',
         message: { title: '已捕获到消息', text: request.message.content.text }
       });
-      chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {
-          type: 'danmu',
-          message: request.message
-        });
+      chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+        if (tabs[0] !== undefined) {
+          chrome.tabs.sendMessage(tabs[0].id, { type: 'danmu', message: request.message });
+        }
       });
     }
   } else if (request.type === 'heartbeat') {
