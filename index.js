@@ -36,7 +36,7 @@ chrome.browserAction.onClicked.addListener(function(tab) {
   } else {
     if (activated) {
       chrome.tabs.create({
-        url: 'http://aidistan.github.io/firefox-weixin-danmu/helper.html'
+        url: 'http://aidistan.github.io/browser-weixin-danmu/helper.html'
       });
     }
     else {

@@ -15,7 +15,7 @@
 5. 在手机微信上向所选的好友或群发消息
 6. 弹幕出现！
 
-更多用法请参考[插件主页](http://aidistan.github.io/chrome-weixin-danmu/)。
+更多用法请参考[插件主页](http://aidistan.github.io/browser-weixin-danmu/)。
 
 ## 致谢
 
