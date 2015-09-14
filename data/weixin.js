@@ -1,5 +1,10 @@
-var port = self.port;
 var src_pref, msg_read;
+
+// Show notification
+chrome.runtime.sendMessage({
+  type: 'notification',
+  message: { title: '消息捕获模块已加载', text: '至页面' + window.location.protocol + '//' + window.location.host + window.location.pathname }
+});
 
 // Whether is the target page
 if (document.getElementById('chatArea')) {
@@ -10,7 +15,7 @@ if (document.getElementById('chatArea')) {
   // Send heartbeats
   setInterval(function() {
     if ($('#chatArea').css('visibility') == 'visible') {
-      port.emit('heartbeat', true);
+      chrome.runtime.sendMessage({ type: 'heartbeat' });
     }
   }, 3000);
 
@@ -104,7 +109,7 @@ function sendMessage(msg) {
   if (msg) {
     setTimeout(function() {
       msg.room = $("[data-cm='" + msg.selector + "']").length > 0 ? 'inside' : 'outside';
-      port.emit('bullet', msg);
+      chrome.runtime.sendMessage({ type: 'weixin', message: msg });
     }, 100);
   }
 }

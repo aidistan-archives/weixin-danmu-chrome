@@ -24,7 +24,7 @@ chrome.browserAction.onClicked.addListener(function(tab) {
       var timer = setInterval(function() {
         if (counter++ < 10) {
           chrome.tabs.sendMessage(tabs[0].id, {
-            type: 'bullet',
+            type: 'danmu',
             message: {user:{name: '弹幕测试'}, content:{text: randomString(), image: ''}}
           });
         }
@@ -48,61 +48,62 @@ chrome.browserAction.onClicked.addListener(function(tab) {
   }
 });
 
-// // Attach weixin.js
-// var pagemod = pageMod.PageMod({
-//   include: ['*.qq.com', '*.wechat.com'],
-//   attachTo: 'top',
-//   contentScriptFile: [
-//     self.data.url('vendor/jquery-2.1.3.min.js'),
-//     self.data.url('weixin.js')
-//   ],
-//   onAttach: function(worker){
-//     showNotification({ title: '加载消息捕获模块', text: '至页面' + worker.url });
-//
-//     worker.port.on('bullet', function(msg) {
-//       if (prefs.showAllMessages || msg.room == 'inside') {
-//         showNotification({ title: '捕获到消息', text: msg.content.text });
-//         if (dm_worker) {
-//           dm_worker.port.emit('bullet', msg);
-//         }
-//       }
-//     });
-//
-//     var timer;
-//     worker.port.on('heartbeat', function() {
-//       if (activated) {
-//         window.clearTimeout(timer);
-//       }
-//       else {
-//         hookup();
-//       }
-//       timer = setTimeout(breakup, 5000);
-//     });
-//
-//     function hookup() {
-//       showNotification({ title: '已登陆网页微信', text: '开始监听微信消息' });
-//       activated = true;
-//       button.icon = {
-//         '16': './icons/icon-16.png',
-//         '32': './icons/icon-32.png',
-//         '64': './icons/icon-64.png'
-//       };
-//     }
-//
-//     function breakup() {
-//       showNotification({ title: '已退出网页微信', text: '不再监听微信消息'  });
-//       button.icon = {
-//         '16': './icons/icon-o-16.png',
-//         '32': './icons/icon-o-32.png',
-//         '64': './icons/icon-o-64.png'
-//       };
-//       activated = false;
-//     }
-//
-//     // Store the worker
-//     wx_workers[worker.tab.id] = worker;
-//   }
-// });
+// Recieve messages
+chrome.runtime.onMessage.addListener(function(request) {
+  var timer;
+
+  if (request.type === 'weixin') {
+    if (prefs.showAllMessages || request.message.room == 'inside') {
+      chrome.runtime.sendMessage({
+        type: 'notification',
+        message: { title: '已捕获到消息', text: request.message.content.text }
+      });
+      chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {
+          type: 'danmu',
+          message: request.message
+        });
+      });
+    }
+  } else if (request.type === 'heartbeat') {
+    if (activated) {
+      window.clearTimeout(timer);
+    }
+    else {
+      hookup();
+    }
+    timer = setTimeout(breakup, 5000);
+  } else if (request.type === 'notification' && prefs.showNotifications) {
+    chrome.notifications.create('notification', {
+      type: "basic",
+      iconUrl: 'data/icons/icon.png',
+      title: request.message.title,
+      message: request.message.text
+    });
+  }
+});
+
+function hookup() {
+  chrome.runtime.sendMessage({
+    type: 'notification',
+    message: { title: '已登陆网页微信', text: '开始监听微信消息' }
+  });
+  activated = true;
+  chrome.browserAction.setIcon({
+    path: 'data/icons/icon.png'
+  });
+}
+
+function breakup() {
+  chrome.runtime.sendMessage({
+    type: 'notification',
+    message: { title: '已退出网页微信', text: '不再监听微信消息' }
+  });
+  activated = false;
+  chrome.browserAction.setIcon({
+    path: 'data/icons/icon-o.png'
+  });
+}
 
 function randomString(len) {
   len = len || 32;
@@ -114,15 +115,3 @@ function randomString(len) {
   }
   return str;
 }
-
-chrome.runtime.onMessage.addListener(function(request) {
-  // Whether to recieve
-  if (request.type === 'notification' && prefs.showNotifications) {
-    chrome.notifications.create('notification', {
-      type: "basic",
-      iconUrl: 'data/icons/icon.png',
-      title: request.message.title,
-      message: request.message.text
-    });
-  }
-});

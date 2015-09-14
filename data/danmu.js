@@ -50,7 +50,7 @@ $(window).resize(function() {
 
 chrome.runtime.onMessage.addListener(function(request) {
   // Whether to recieve
-  if (request.type !== 'bullet') {
+  if (request.type !== 'danmu') {
     return null;
   }
   var msg = request.message;
