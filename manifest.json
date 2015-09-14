@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+
+  "name": "微信弹幕",
+  "description": "将网页版微信的消息即时显示在任意标签页上",
+  "version": "0.0.0",
+  "icons": {
+    "16": "data/icons/icon-16.png",
+    "48": "data/icons/icon-64.png",
+    "128": "data/icons/icon.png"
+  },
+
+  "author": "Aidi Stan",
+  "homepage_url": "http://aidistan.github.io/chrome-weixin-danmu",
+
+  "browser_action": {
+    "default_icon": "data/icons/icon.png"
+  },
+
+  "permissions": [
+    "storage",
+    "tabs",
+    "http://*/*",
+    "https://*/*"
+  ],
+
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  }
+}
