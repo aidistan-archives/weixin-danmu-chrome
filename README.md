@@ -4,7 +4,7 @@
 
 ## 安装
 
-将从 Github 下载的[插件压缩包](http://aidistan.github.io/chrome-weixin-danmu/weixin-danmu.zip)直接拖入 [Chrome 扩展页面](chrome://extensions/)内即可。
+下载[插件压缩包](http://aidistan.github.io/chrome-weixin-danmu/weixin-danmu.zip)，将解压后的文件夹直接拖入 [Chrome 扩展页面](chrome://extensions/)即可。
 
 ## 使用
 
@@ -22,6 +22,11 @@
 本插件深受 [WeShoot](https://github.com/Integ/WeShoot) 启发，特此感谢！
 
 ## 变更
+
+### v1.0.1 (20150914)
+
+- 修复微信消息丢失问题
+- 修复图标反复点亮问题
 
 ### v1.0.0 (20150914)
 
