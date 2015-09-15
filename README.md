@@ -33,3 +33,7 @@
 - 与火狐版功能相同
 
 请查看[变更历史](https://github.com/aidistan/chrome-weixin-danmu/blob/master/HISTORY.md)了解更多。
+
+## 许可
+
+Copyright (c) 2015 Aidi Stan under [the MIT License](https://github.com/aidistan/chrome-weixin-danmu/blob/master/LICENSE)
