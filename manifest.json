@@ -29,7 +29,7 @@
       "run_at": "document_idle"
     },
     {
-      "matches": ["http://*/*", "https://*/*"],
+      "matches": ["file:///*/*", "http://*/*", "https://*/*"],
       "js": ["data/vendor/jquery-2.1.3.min.js", "data/danmu.js"],
       "run_at": "document_start"
     }
