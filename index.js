@@ -88,7 +88,7 @@ function hookup() {
   });
   activated = true;
   chrome.browserAction.setIcon({
-    path: 'data/icons/icon.png'
+    path: 'data/icons/icon-16.png'
   });
 }
 
@@ -99,7 +99,7 @@ function breakup() {
   });
   activated = false;
   chrome.browserAction.setIcon({
-    path: 'data/icons/icon-o.png'
+    path: 'data/icons/icon-o-16.png'
   });
 }
 
