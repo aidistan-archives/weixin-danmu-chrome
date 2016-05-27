@@ -14,7 +14,6 @@ if (document.getElementById('chatArea')) {
   // Initialize
   src_pref = window.location.protocol + '//' + window.location.host;
   msg_read = new Array(MSG_QUEUE_SIZE);
-  username = /username=(@\w+)&/.exec($('.header .avatar img').attr('src'))[1];
 
   // Send heartbeats
   setInterval(function() {
@@ -30,6 +29,8 @@ if (document.getElementById('chatArea')) {
 }
 
 function captureMessage() {
+  username = username || /username=(@\w+)&/.exec($('.header .avatar img').attr('src'))[1];
+
   var msg = {
     id: '',
     user: {
@@ -50,9 +51,7 @@ function captureMessage() {
   msg.user.isSelf = username === json.actualSender;
 
   // HACK for issue #18
-  if (msg.id.length < 18) {
-    return null;
-  }
+  if (msg.id.length < 18) return null;
 
   // Check the message if read
   for (i = 0; i < msg_read.length; i++) {
