@@ -4,7 +4,7 @@
 
 ## 安装
 
-目前支持[从 Chrome 商城安装](https://chrome.google.com/webstore/detail/%E5%BE%AE%E4%BF%A1%E5%BC%B9%E5%B9%95/oaglinapidhlmnnnkcmkmgkopbodjonl)和[从 Github 下载安装](http://aidistan.github.io/chrome-weixin-danmu/weixin-danmu.zip)
+目前支持 [从 Chrome 商城安装](https://chrome.google.com/webstore/detail/%E5%BE%AE%E4%BF%A1%E5%BC%B9%E5%B9%95/oaglinapidhlmnnnkcmkmgkopbodjonl) 和 [从 Github 下载安装](http://aidistan.github.io/chrome-weixin-danmu/weixin-danmu.zip)
 
 > 解压从 Github 下载的压缩包，将文件夹直接拖入 Chrome 的扩展页面即可。
 
@@ -17,7 +17,7 @@
 5. 在手机微信上向所选的好友或群发消息
 6. 弹幕出现！
 
-更多用法请参考[插件主页](http://aidistan.github.io/browser-weixin-danmu/)。
+更多用法请参考 [插件主页](http://aidistan.github.io/browser-weixin-danmu/) 。
 
 ## 致谢
 
@@ -25,25 +25,12 @@
 
 ## 变更
 
-### v1.0.3 (20160405)
+### v1.1.0 (20160528)
 
-- 修复工具栏图标点亮问题
-- 屏蔽部分无意义消息
+- 默认忽略自己发出的消息
+- 进一步提升用户体验
 
-### v1.0.2 (20150922)
-
-- 修复本地页面不出现弹幕的问题
-
-### v1.0.1 (20150914)
-
-- 修复微信消息丢失问题
-- 修复图标反复点亮问题
-
-### v1.0.0 (20150914)
-
-- 与火狐版功能相同
-
-请查看[变更历史](https://github.com/aidistan/chrome-weixin-danmu/blob/master/HISTORY.md)了解更多。
+请查看 [变更历史](https://github.com/aidistan/chrome-weixin-danmu/blob/master/HISTORY.md) 了解更多。
 
 ## 许可
 
