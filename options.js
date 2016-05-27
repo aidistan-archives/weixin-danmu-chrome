@@ -2,6 +2,7 @@
 function save_options() {
   var defaultfontSize = document.getElementById('defaultfontSize').value;
   var showAllMessages = document.getElementById('showAllMessages').checked;
+  var showMyMessages = document.getElementById('showMyMessages').checked;
   var showUsername = document.getElementById('showUsername').checked;
   var pinWeixinTab = document.getElementById('pinWeixinTab').checked;
   var showNotifications = document.getElementById('showNotifications').checked;
@@ -10,6 +11,7 @@ function save_options() {
   chrome.storage.sync.set({
     defaultfontSize: defaultfontSize,
     showAllMessages: showAllMessages,
+    showMyMessages: showMyMessages,
     showUsername: showUsername,
     pinWeixinTab: pinWeixinTab,
     showNotifications: showNotifications,
@@ -29,6 +31,7 @@ function restore_options() {
   chrome.storage.sync.get({
     defaultfontSize: 48,
     showAllMessages: false,
+    showMyMessages: false,
     showUsername: false,
     pinWeixinTab: false,
     showNotifications: false,
@@ -36,6 +39,7 @@ function restore_options() {
   }, function(items) {
     document.getElementById('defaultfontSize').value = items.defaultfontSize;
     document.getElementById('showAllMessages').checked = items.showAllMessages;
+    document.getElementById('showMyMessages').checked = items.showMyMessages;
     document.getElementById('showUsername').checked = items.showUsername;
     document.getElementById('pinWeixinTab').checked = items.pinWeixinTab;
     document.getElementById('showNotifications').checked = items.showNotifications;

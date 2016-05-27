@@ -4,6 +4,7 @@ function refresh_options() {
   chrome.storage.sync.get({
     defaultfontSize: 48,
     showAllMessages: false,
+    showMyMessages: false,
     showUsername: false,
     pinWeixinTab: false,
     showNotifications: false,
@@ -57,6 +58,9 @@ chrome.runtime.onMessage.addListener(function(request) {
         type: 'notification',
         message: { title: '已捕获到消息', text: request.message.content.text }
       });
+
+      if (request.message.user.isSelf && !prefs.showMyMessages) return;
+
       chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
         if (tabs[0] !== undefined) {
           chrome.tabs.sendMessage(tabs[0].id, { type: 'danmu', message: request.message });
