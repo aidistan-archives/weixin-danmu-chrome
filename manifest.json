@@ -3,7 +3,7 @@
 
   "name": "微信弹幕",
   "description": "将网页版微信的消息即时显示在任意标签页上",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "icons": {
     "16": "data/icons/icon-16.png",
     "48": "data/icons/icon-64.png",
