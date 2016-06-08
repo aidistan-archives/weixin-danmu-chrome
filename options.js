@@ -30,8 +30,8 @@ function save_options() {
 function restore_options() {
   chrome.storage.sync.get({
     defaultfontSize: 48,
-    showAllMessages: false,
-    showMyMessages: false,
+    showAllMessages: true,
+    showMyMessages: true,
     showUsername: false,
     pinWeixinTab: false,
     showNotifications: false,
